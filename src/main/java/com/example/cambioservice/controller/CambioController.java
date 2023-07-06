@@ -28,16 +28,36 @@ public class CambioController {
           @PathVariable("to") String to
   ) {
 
-    var cambio = cambioRepository.findByFromAndTo(from, to);
+    Cambio cambio = getCambioByFromAndTo(from, to);
+    validateCambio(cambio);
+    setConvertedValue(cambio, amount);
+    setEnvironment(cambio);
 
-    if(cambio == null) throw new RuntimeException("Currency Unsupported");
-    var port = environment.getProperty("local.server.port");
+    return cambio;
+  }
+
+  private Cambio getCambioByFromAndTo(String from, String to) {
+    Cambio cambio = cambioRepository.findByFromAndTo(from, to);
+    if (cambio == null) {
+      throw new RuntimeException("Currency Unsupported");
+    }
+    return cambio;
+  }
+
+  private void validateCambio(Cambio cambio) {
+    if (cambio == null) {
+      throw new RuntimeException("Currency Unsupported");
+    }
+  }
+
+  private void setConvertedValue(Cambio cambio, BigDecimal amount) {
     BigDecimal conversionFactor = cambio.getConversionFactor();
     BigDecimal convertedValue = conversionFactor.multiply(amount);
     cambio.setConvertedValue(convertedValue.setScale(2, RoundingMode.CEILING));
+  }
 
+  private void setEnvironment(Cambio cambio) {
+    String port = environment.getProperty("local.server.port");
     cambio.setEnvironment(port);
-
-    return cambio;
   }
 }
