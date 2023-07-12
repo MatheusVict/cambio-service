@@ -27,3 +27,7 @@ spring:
 springdoc:
   api-docs:
     path: cambio-service/v3/api-docs
+management:
+  tracing:
+    sampling:
+      probability: 1.0
