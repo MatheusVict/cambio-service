@@ -1,0 +1,1 @@
+[![Continuos Integration with github](https://github.com/MatheusVict/cambio-service/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/MatheusVict/cambio-service/actions/workflows/docker-publish.yml)
