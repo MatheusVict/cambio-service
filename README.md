@@ -32,6 +32,9 @@ docker compose up -d
 
 #### you can open on [localhost](htpp://localhost:8000)
 
+#### Docs
+[Swagger](http://localhost:8000/swagger-ui/index.html#/)
+
 #### GetCambio
 
 ```Get```
